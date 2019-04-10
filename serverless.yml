@@ -1,0 +1,60 @@
+service:
+  name: template-serverless-typescript
+
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-prune-plugin
+#  - serverless-reqvalidator-plugin
+#  - serverless-aws-documentation
+
+custom:
+  prune:
+    automatic: true
+    number: 3
+#  documentation:
+#    models:
+#      - name: MemberAdded
+#        description: 'Model for member added'
+#        contentType: application/json
+#        schema: ${file(models/member_added.json)}
+
+provider:
+  name: aws
+  region: ap-northeast-1
+  runtime: nodejs8.10
+  logRetentionInDays: 1
+  environment:
+    SLACK_TOKEN: <your_slack_token>
+    TZ: <your_timezone>
+
+#resources:
+#  Resources:
+#    bodyAndParams:
+#      Type: AWS::ApiGateway::RequestValidator
+#      Properties:
+#        Name: body-and-params
+#        RestApiId:
+#          Ref: ApiGatewayRestApi
+#        ValidateRequestBody: true
+#        ValidateRequestParameters: true
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          method: post
+          path: hello
+#          documentation:
+#            requestHeaders:
+#              - name: X-Hub-Signature
+#                required: true
+#              - name: X-GitHub-Delivery
+#                required: true
+#              - name: X-GitHub-Event
+#                required: true
+#            requestModels:
+#              application/json: MemberAdded
+#          reqValidatorName: bodyAndParams

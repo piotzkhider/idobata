@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "properties": {
+    "action": {
+      "enum": [
+        "member_added"
+      ]
+    },
+    "membership": {
+      "$ref": "#/definitions/membership"
+    }
+  },
+  "required": [
+    "action",
+    "membership"
+  ],
+  "definitions": {
+    "membership": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/user"
+        }
+      },
+      "required": [
+        "user"
+      ]
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "login": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "login"
+      ]
+    }
+  }
+}
